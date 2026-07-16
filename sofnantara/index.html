@@ -49,7 +49,7 @@
                 <div>
                     <p class="text-xs uppercase tracking-wider text-emerald-400 font-semibold mb-2">Media Sosial</p>
                     <a href="#" class="flex items-center space-x-2 p-2 rounded hover:bg-emerald-800 transition text-sm">
-                        <span>📸 Instagram: @kubias</span>
+                        <span>📸 Instagram: @kubias.bakery</span>
                     </a>
                     <a href="#" class="flex items-center space-x-2 p-2 rounded hover:bg-emerald-800 transition text-sm">
                         <span>📱 TikTok: @kubias_bakery</span>
@@ -84,9 +84,9 @@
                     <div class="flex items-center justify-between mt-4 pt-3 border-t border-gray-50">
                         <span class="font-bold text-emerald-600 text-sm">Rp 45.000</span>
                         <div class="flex items-center bg-emerald-50 rounded-full p-1 border border-emerald-200">
-                            <button onclick="ubahJumlah('p1', -1)" class="w-7 h-7 flex items-center justify-center bg-white rounded-full text-emerald-700 font-bold hover:bg-emerald-100 shadow-sm focus:outline-none">-</button>
+                            <button onclick="ubahJumlah('p1', -1, 'Matcha Mousse Cake', 45000)" class="w-7 h-7 flex items-center justify-center bg-white rounded-full text-emerald-700 font-bold hover:bg-emerald-100 shadow-sm focus:outline-none">-</button>
                             <span id="p1" class="mx-3 text-sm font-bold text-emerald-900">0</span>
-                            <button onclick="ubahJumlah('p1', 1)" class="w-7 h-7 flex items-center justify-center bg-white rounded-full text-emerald-700 font-bold hover:bg-emerald-100 shadow-sm focus:outline-none">+</button>
+                            <button onclick="ubahJumlah('p1', 1, 'Matcha Mousse Cake', 45000)" class="w-7 h-7 flex items-center justify-center bg-white rounded-full text-emerald-700 font-bold hover:bg-emerald-100 shadow-sm focus:outline-none">+</button>
                         </div>
                     </div>
                 </div>
@@ -102,9 +102,9 @@
                     <div class="flex items-center justify-between mt-4 pt-3 border-t border-gray-50">
                         <span class="font-bold text-emerald-600 text-sm">Rp 38.000</span>
                         <div class="flex items-center bg-emerald-50 rounded-full p-1 border border-emerald-200">
-                            <button onclick="ubahJumlah('p2', -1)" class="w-7 h-7 flex items-center justify-center bg-white rounded-full text-emerald-700 font-bold hover:bg-emerald-100 shadow-sm focus:outline-none">-</button>
+                            <button onclick="ubahJumlah('p2', -1, 'Pandan Roll Cake', 38000)" class="w-7 h-7 flex items-center justify-center bg-white rounded-full text-emerald-700 font-bold hover:bg-emerald-100 shadow-sm focus:outline-none">-</button>
                             <span id="p2" class="mx-3 text-sm font-bold text-emerald-900">0</span>
-                            <button onclick="ubahJumlah('p2', 1)" class="w-7 h-7 flex items-center justify-center bg-white rounded-full text-emerald-700 font-bold hover:bg-emerald-100 shadow-sm focus:outline-none">+</button>
+                            <button onclick="ubahJumlah('p2', 1, 'Pandan Roll Cake', 38000)" class="w-7 h-7 flex items-center justify-center bg-white rounded-full text-emerald-700 font-bold hover:bg-emerald-100 shadow-sm focus:outline-none">+</button>
                         </div>
                     </div>
                 </div>
@@ -113,40 +113,155 @@
         </div>
 
         <div class="space-y-4">
-            <h2 class="text-lg font-bold text-emerald-800 mb-4 flex items-center">
+            <h2 class="text-lg font-bold text-emerald-800 mb-2 flex items-center">
                 <span class="bg-emerald-600 w-2 h-5 rounded-full mr-2 inline-block"></span>
-                Ringkasan Pesanan
+                Detail Pembelian
             </h2>
-            <div class="bg-white p-5 rounded-2xl border border-emerald-100 shadow-sm text-center py-10">
-                <p class="text-gray-400 text-sm">Belum ada kue yang ditambahkan ke keranjang.</p>
+            
+            <div class="bg-white p-4 rounded-2xl border border-emerald-100 shadow-sm flex flex-col justify-between min-h-[250px]">
+                <div>
+                    <div class="text-sm font-bold text-emerald-900 border-b border-gray-100 pb-2 mb-3 flex justify-between">
+                        <span>Item Belanjaan</span>
+                        <span class="text-xs bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded-full" id="total-items">0 Kue</span>
+                    </div>
+                    
+                    <div id="cart-items" class="space-y-2 text-sm text-gray-500 max-h-40 overflow-y-auto">
+                        <p class="text-center text-gray-400 py-6">Keranjang masih kosong.</p>
+                    </div>
+                </div>
+
+                <div class="border-t border-gray-100 pt-3 mt-4">
+                    <div class="flex justify-between items-center">
+                        <span class="text-sm font-medium text-gray-500">Total Tagihan:</span>
+                        <span class="text-xl font-bold text-emerald-700" id="total-price">Rp 0</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white p-4 rounded-2xl border border-emerald-100 shadow-sm">
+                <div class="text-sm font-bold text-emerald-900 border-b border-gray-100 pb-2 mb-3">
+                    Metode Pembayaran
+                </div>
+                <div class="grid grid-cols-2 gap-2 text-xs">
+                    <label class="border border-emerald-200 rounded-xl p-3 flex flex-col items-center justify-center cursor-pointer hover:bg-emerald-50 bg-emerald-50/30 transition border-2" id="label-qris">
+                        <input type="radio" name="payment" value="qris" checked class="hidden" onclick="selectPayment('qris')">
+                        <span class="text-lg mb-1">📱</span>
+                        <span class="font-bold text-gray-700">QRIS / E-Wallet</span>
+                    </label>
+                    <label class="border border-gray-100 rounded-xl p-3 flex flex-col items-center justify-center cursor-pointer hover:bg-emerald-50 transition border-2" id="label-tf">
+                        <input type="radio" name="payment" value="transfer" class="hidden" onclick="selectPayment('transfer')">
+                        <span class="text-lg mb-1">🏦</span>
+                        <span class="font-bold text-gray-700">Transfer Bank</span>
+                    </label>
+                </div>
+
+                <button onclick="checkout()" class="w-full mt-4 bg-emerald-600 text-white font-bold py-2.5 rounded-xl shadow-md shadow-emerald-200 hover:bg-emerald-700 transition tracking-wide text-sm">
+                    Konfirmasi & Bayar
+                </button>
             </div>
         </div>
 
     </main>
 
     <script>
-        // Fungsi Buka-Tutup Sidebar
+        // Data internal keranjang belanjaan
+        let keranjang = {};
+
+        // Buka/Tutup Sidebar
         function toggleSidebar() {
             const sidebar = document.getElementById('sidebar');
             const overlay = document.getElementById('sidebarOverlay');
-            
             sidebar.classList.toggle('-translate-x-full');
             overlay.classList.toggle('hidden');
         }
 
-        // Fungsi Tambah/Kurang Jumlah Kue di Etalase
-        function ubahJumlah(idProduk, aksi) {
+        // Fungsi Tambah/Kurang Etalase sekaligus memperbarui keranjang
+        function ubahJumlah(idProduk, aksi, namaKue, hargaKue) {
             const elemenJumlah = document.getElementById(idProduk);
             let jumlahSaatIni = parseInt(elemenJumlah.innerText);
 
             jumlahSaatIni += aksi;
-
-            // Jumlah tidak boleh minus
-            if (jumlahSaatIni < 0) {
-                jumlahSaatIni = 0;
-            }
+            if (jumlahSaatIni < 0) jumlahSaatIni = 0;
 
             elemenJumlah.innerText = jumlahSaatIni;
+
+            // Update data objek keranjang
+            if (jumlahSaatIni > 0) {
+                keranjang[idProduk] = {
+                    nama: namaKue,
+                    jumlah: jumlahSaatIni,
+                    harga: hargaKue
+                };
+            } else {
+                delete keranjang[idProduk];
+            }
+
+            perbaruiTampilanKeranjang();
+        }
+
+        // Fungsi Render Ulang Tampilan Keranjang
+        function perbaruiTampilanKeranjang() {
+            const containerItems = document.getElementById('cart-items');
+            const containerTotal = document.getElementById('total-price');
+            const containerCount = document.getElementById('total-items');
+            
+            containerItems.innerHTML = '';
+            let totalHarga = 0;
+            let totalKue = 0;
+
+            const daftarKunci = Object.keys(keranjang);
+
+            if (daftarKunci.length === 0) {
+                containerItems.innerHTML = '<p class="text-center text-gray-400 py-6">Keranjang masih kosong.</p>';
+            } else {
+                daftarKunci.forEach(kunci => {
+                    const item = keranjang[kunci];
+                    const subTotal = item.jumlah * item.harga;
+                    totalHarga += subTotal;
+                    totalKue += item.jumlah;
+
+                    // Buat elemen baris produk di keranjang
+                    const itemRow = document.createElement('div');
+                    itemRow.className = 'flex justify-between items-center bg-gray-50 p-2 rounded-lg text-xs';
+                    itemRow.innerHTML = `
+                        <div>
+                            <span class="font-bold text-gray-800">${item.nama}</span>
+                            <span class="text-emerald-600 font-semibold block">${item.jumlah}x @ Rp ${item.harga.toLocaleString('id-ID')}</span>
+                        </div>
+                        <span class="font-bold text-gray-700">Rp ${subTotal.toLocaleString('id-ID')}</span>
+                    `;
+                    containerItems.appendChild(itemRow);
+                });
+            }
+
+            containerCount.innerText = `${totalKue} Kue`;
+            containerTotal.innerText = `Rp ${totalHarga.toLocaleString('id-ID')}`;
+        }
+
+        // Visual efek saat memilih metode pembayaran
+        function selectPayment(metode) {
+            const labelQris = document.getElementById('label-qris');
+            const labelTf = document.getElementById('label-tf');
+
+            if (metode === 'qris') {
+                labelQris.classList.add('border-emerald-600', 'bg-emerald-50/50');
+                labelTf.classList.remove('border-emerald-600', 'bg-emerald-50/50');
+            } else {
+                labelTf.classList.add('border-emerald-600', 'bg-emerald-50/50');
+                labelQris.classList.remove('border-emerald-600', 'bg-emerald-50/50');
+            }
+        }
+
+        // Fungsi tombol bayar
+        function checkout() {
+            const daftarKunci = Object.keys(keranjang);
+            if (daftarKunci.length === 0) {
+                alert('Silakan pilih kue di etalase terlebih dahulu!');
+                return;
+            }
+            
+            const metodeTerpilih = document.querySelector('input[name="payment"]:checked').value;
+            alert(`Pesanan berhasil dikonfirmasi!\nSilakan lakukan pembayaran menggunakan metode: ${metodeTerpilih.toUpperCase()}`);
         }
     </script>
 </body>
